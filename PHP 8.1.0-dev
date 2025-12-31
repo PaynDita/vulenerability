@@ -1,4 +1,4 @@
-# PHP 8.1.0-dev Backdoor Remote Code Execution
+#PHP 8.1.0-dev Backdoor Remote Code Execution
 
 #Note: nano attacker.py (copy all the content) 
 #chmod +x attacker.py
