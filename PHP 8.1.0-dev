@@ -1,3 +1,10 @@
+#Note: nano attacker.py (copy all the content) 
+#chmod +x attacker.py
+#./attacker.py
+#http://<ip>
+
+--------------------------------------------------------------------------------------------
+
 #!/usr/bin/env python3
 import os
 import requests
